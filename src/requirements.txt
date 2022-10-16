@@ -1,0 +1,6 @@
+pytest
+pytest-env
+moto
+boto3
+coverage
+pylint

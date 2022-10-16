@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: "serverless-birthday-app"
+    Description: "Use of Lambda and DynamoDB Local using SAM."
+    Author: "Marcin Wojtas"
+    ReadmeUrl: "README.md"
+
+Parameters:
+  TABLENAME:
+    Type: String
+    Description: The DynamoDB table for storing Person information.
+    Default: 'users'
+
+  AWSENVNAME:
+    Type: String
+    Description: AWS Environment where code is being executed (AWS_SAM_LOCAL or AWS).
+    Default: 'AWS_SAM_LOCAL'
+
+  DEVENVNAME:
+    Type: String
+    Description: Developer environment where code is being executed (OSX, Windows, or Linux).
+    Default: 'OSX'
+
+Resources:
+  GetAllItemsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: birthday.handler
+      Environment:
+        Variables:
+          TABLENAME: !Ref TABLENAME
+          AWSENV: !Ref AWSENVNAME
+          DEVENV: !Ref DEVENVNAME
+      Runtime: python3.8
+      Events:
+        GetItem:
+          Type: Api
+          Properties:
+            Path: /hello/{username}
+            Method: get
+        PutItem:
+          Type: Api
+          Properties:
+            Path: /hello/{username}
+            Method: put

@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: Swagger serverless birthday app - OpenAPI 3.0
+  version: 1.0.0
+  description: |-
+    This is a sample serverless birthday app based on the OpenAPI 3.0 specification.
+servers:
+  - url: https://<BASE_URL>
+paths:
+  /hello/{username}:
+    get:
+      tags:
+        - hello
+      summary: Returns birthday message
+      description: Check date of birth
+      operationId: getBirthdayMessage
+      parameters:
+        - name: username
+          in: path
+          description: Username
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid request
+        '404':
+          description: Username doesn't exist
+    put:
+      tags:
+        - hello
+      summary: Saves/updates
+      description: Saves/updates the given user’s name and date of birth in the database
+      operationId: putUserItem
+      parameters:
+        - name: username
+          in: path
+          description: Username
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          dateOfBirth:
+            schema:
+              type: string
+      responses:
+        '204':
+          description: successful operation
+        '400':
+          description: Invalid request
