@@ -1,11 +1,13 @@
-# Serverless birthday app - Amazon API Gateway HTTP API to AWS Lambda
+# Serverless birthday application with infrastructure as code
 This repository contains an AWS Lambda function that saves/updates the given user’s name and date of birth in the database and returns hello birthday messages for the given user. The Terraform template deploys a Lambda function, a DynamoDB table, Amazon API Gateway HTTP API, CloudWatch log groups and the minimum IAM resources required to run the application.
 
 The process flow is as follows:
 
 ![Architecture](images/diagram.png)  
 
-## Develop applications
+## Develop and test serverless birthday application on AWS
+### How it works
+This pattern deploys an Amazon API Gateway HTTP API. The routes are integrated with an AWS Lambda function written in Python. The lambda function is integrated with DynamoDB. The function logs the incoming API event (v2) and context object to an Amazon CloudWatch Logs log group and returns information to the caller.
 
 ### Development Environment Prerequisites
 * [Create an AWS account](https://portal.aws.amazon.com/gp/aws/developer/registration/index.html) if you do not already have one and log in. The IAM user that you use must have sufficient permissions to make necessary AWS service calls and manage AWS resources (with permissions to IAM, Lambda, API Gateway, CloudWatch and DynamoDB.
@@ -14,7 +16,7 @@ The process flow is as follows:
 * [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started) installed 
 * Python [3.8](https://www.python.org/downloads/) with [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html) package
 
-### Deployment Instructions
+### Deployment on AWS
 1. Clone the GitHub repository:
     ``` 
     git clone https://github.com/MarcinWojtasEit/serverless-birthday-app
@@ -34,9 +36,6 @@ The process flow is as follows:
 1. During the prompts:
     * Enter yes
 1. Note the outputs from the deployment process, these contain the base URL for API Gateway stage which are used for testing.
-
-### How it works
-This pattern deploys an Amazon API Gateway HTTP API. The routes are integrated with an AWS Lambda function written in Python. The lambda function is integrated with DynamoDB. The function logs the incoming API event (v2) and context object to an Amazon CloudWatch Logs log group and returns information to the caller.
 
 ### Testing
 
@@ -86,7 +85,7 @@ Once the stack is deployed, retrieve the base URL for API Gateway stage from the
     terraform show
     ```
 
-### Unittest
+## Unittest
 1. Change directory to the pattern directory:
     ```
     cd serverless-birthday-app/src
@@ -108,7 +107,7 @@ Once the stack is deployed, retrieve the base URL for API Gateway stage from the
     open htmlcov/index.html
     ```
 
-## Develop and test your serverless applications locally with DynamoDB local.
+## Develop and test serverless birthday application locally with DynamoDB local
 The SAM template deploys a Lambda function, a DynamoDB table and the IAM resources required to run the application.
 
 ### Development Environment Prerequisites
