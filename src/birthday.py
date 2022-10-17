@@ -105,7 +105,7 @@ def get_birthday_message(username):
         }
     elif(
         today.month == dateOfBirth.month
-        and today.day >= dateOfBirth.day
+        and today.day > dateOfBirth.day
         or today.month > dateOfBirth.month
     ):
         nextBirthDayYear = today.year + 1
